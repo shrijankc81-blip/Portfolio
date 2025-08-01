@@ -1,0 +1,39 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "kill-port": "node scripts/kill-port.js",
+    "kill-dev-ports": "node scripts/kill-port.js dev",
+    "kill:5000": "node scripts/kill-port.js 5000 --force",
+    "db:test": "node scripts/db-cli.js test",
+    "db:init": "node scripts/db-cli.js init",
+    "db:migrate": "node scripts/db-cli.js migrate",
+    "db:rollback": "node scripts/db-cli.js rollback",
+    "db:seed": "node scripts/db-cli.js seed",
+    "db:reset": "node scripts/db-cli.js reset",
+    "db:drop": "node scripts/db-cli.js drop",
+    "db:status": "node scripts/db-cli.js status"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "commander": "^14.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.2",
+    "pg": "^8.16.3",
+    "pg-hstore": "^2.3.4",
+    "react-hook-form": "^7.61.1",
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7"
+  }
+}

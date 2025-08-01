@@ -19,7 +19,7 @@ const Admin = () => {
 
       if (token && savedAdmin) {
         // Verify token with backend
-        const response = await axios.get("http://localhost:5001/api/admin/me", {
+        const response = await axios.get("http://localhost:5002/api/admin/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -42,7 +42,7 @@ const Admin = () => {
     }
   };
 
-  const handleLogin = (adminData, token) => {
+  const handleLogin = (adminData) => {
     setAdmin(adminData);
     setIsAuthenticated(true);
   };

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { getApiUrl } from "../../config/api";
 
 const SkillForm = ({ skill, onSave, onCancel }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -54,17 +55,15 @@ const SkillForm = ({ skill, onSave, onCancel }) => {
       if (skill) {
         // Update existing skill
         response = await axios.put(
-          `http://localhost:5001/api/skills/${skill.id}`,
+          getApiUrl(`/api/skills/${skill.id}`),
           skillData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
       } else {
         // Create new skill
-        response = await axios.post(
-          "http://localhost:5001/api/skills",
-          skillData,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+        response = await axios.post(getApiUrl("/api/skills"), skillData, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
       }
 
       if (response.data.success) {

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { getApiUrl } from "../../config/api";
 
 const AdminLogin = ({ onLogin }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -17,13 +18,10 @@ const AdminLogin = ({ onLogin }) => {
     setError("");
 
     try {
-      const response = await axios.post(
-        "http://localhost:5001/api/admin/login",
-        {
-          username: data.username,
-          password: data.password,
-        }
-      );
+      const response = await axios.post(getApiUrl("/api/admin/login"), {
+        username: data.username,
+        password: data.password,
+      });
 
       if (response.data.success) {
         localStorage.setItem("adminToken", response.data.token);

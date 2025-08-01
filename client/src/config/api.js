@@ -1,7 +1,7 @@
 // API Configuration
 const API_CONFIG = {
   // Base URL for the API
-  BASE_URL: import.meta.env.VITE_API_URL || "http://localhost:5001",
+  BASE_URL: import.meta.env.VITE_API_URL || "http://localhost:5002",
 
   // API endpoints
   ENDPOINTS: {

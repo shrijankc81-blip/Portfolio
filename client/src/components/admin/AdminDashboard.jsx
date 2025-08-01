@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { getApiUrl } from "../../config/api";
 import ProjectList from "./ProjectList";
 import ProjectForm from "./ProjectForm";
 import SkillsList from "./SkillsList";
@@ -26,7 +27,7 @@ const AdminDashboard = ({ admin, onLogout }) => {
 
   const fetchProjects = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/api/projects");
+      const response = await axios.get(getApiUrl("/api/projects"));
       if (response.data.success) {
         setProjects(response.data.projects);
       }
@@ -39,7 +40,7 @@ const AdminDashboard = ({ admin, onLogout }) => {
 
   const fetchSkills = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/api/skills");
+      const response = await axios.get(getApiUrl("/api/skills"));
       if (response.data.success) {
         setSkills(response.data.skills);
       }
@@ -50,7 +51,7 @@ const AdminDashboard = ({ admin, onLogout }) => {
 
   const fetchExperiences = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/api/experience");
+      const response = await axios.get(getApiUrl("/api/experience"));
       if (response.data.success) {
         setExperiences(response.data.experiences);
       }
@@ -83,7 +84,7 @@ const AdminDashboard = ({ admin, onLogout }) => {
 
     try {
       const token = localStorage.getItem("adminToken");
-      await axios.delete(`http://localhost:5001/api/projects/${projectId}`, {
+      await axios.delete(getApiUrl(`/api/projects/${projectId}`), {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchProjects();
@@ -112,7 +113,7 @@ const AdminDashboard = ({ admin, onLogout }) => {
 
     try {
       const token = localStorage.getItem("adminToken");
-      await axios.delete(`http://localhost:5001/api/skills/${skillId}`, {
+      await axios.delete(getApiUrl(`/api/skills/${skillId}`), {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchSkills();
@@ -141,12 +142,9 @@ const AdminDashboard = ({ admin, onLogout }) => {
 
     try {
       const token = localStorage.getItem("adminToken");
-      await axios.delete(
-        `http://localhost:5001/api/experience/${experienceId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      await axios.delete(getApiUrl(`/api/experience/${experienceId}`), {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       fetchExperiences();
     } catch (error) {
       console.error("Error deleting experience:", error);

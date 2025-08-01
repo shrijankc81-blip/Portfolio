@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { getImageUrl, handleImageError } from "../utils/imageUtils";
+import { getApiUrl } from "../config/api";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -12,7 +13,7 @@ const Projects = () => {
 
   const fetchProjects = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/api/projects");
+      const response = await axios.get(getApiUrl("/api/projects"));
       if (response.data.success) {
         setProjects(response.data.projects);
       }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { getApiUrl } from "../../config/api";
 
 const ExperienceForm = ({ experience, onSave, onCancel }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -71,14 +72,14 @@ const ExperienceForm = ({ experience, onSave, onCancel }) => {
       if (experience) {
         // Update existing experience
         response = await axios.put(
-          `http://localhost:5001/api/experience/${experience.id}`,
+          getApiUrl(`/api/experience/${experience.id}`),
           experienceData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
       } else {
         // Create new experience
         response = await axios.post(
-          "http://localhost:5001/api/experience",
+          getApiUrl("/api/experience"),
           experienceData,
           { headers: { Authorization: `Bearer ${token}` } }
         );

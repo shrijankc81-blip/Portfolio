@@ -3,6 +3,7 @@ import { getApiUrl } from "../config/api";
 
 const About = () => {
   const [profile, setProfile] = useState(null);
+  const [skills, setSkills] = useState([]);
 
   // Fetch profile data
   useEffect(() => {
@@ -20,47 +21,33 @@ const About = () => {
 
     fetchProfile();
   }, []);
-  const skills = [
-    {
-      category: "Frontend",
-      items: [
-        "React",
-        "JavaScript",
-        "TypeScript",
-        "HTML5",
-        "CSS3",
-        "Tailwind CSS",
-        "Vue.js",
-        "Next.js",
-      ],
-    },
-    {
-      category: "Backend",
-      items: [
-        "Node.js",
-        "Express.js",
-        "Python",
-        "Django",
-        "PostgreSQL",
-        "MongoDB",
-        "REST APIs",
-        "GraphQL",
-      ],
-    },
-    {
-      category: "Tools & Others",
-      items: [
-        "Git",
-        "Docker",
-        "AWS",
-        "Figma",
-        "Photoshop",
-        "Linux",
-        "Agile",
-        "Testing",
-      ],
-    },
-  ];
+
+  // Fetch skills data
+  useEffect(() => {
+    const fetchSkills = async () => {
+      try {
+        const response = await fetch(getApiUrl("/api/skills"));
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success) {
+            // Convert grouped skills to array format
+            const skillsArray = Object.entries(data.skills).map(
+              ([category, skillsInCategory]) => ({
+                category,
+                items: skillsInCategory.map((skill) => skill.name),
+              })
+            );
+
+            setSkills(skillsArray);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching skills:", error);
+      }
+    };
+
+    fetchSkills();
+  }, []);
 
   return (
     <section id="about" className="py-20 bg-white">
@@ -99,23 +86,31 @@ const About = () => {
           <div>
             <h3 className="text-2xl font-bold text-gray-900 mb-6">My Skills</h3>
             <div className="space-y-6">
-              {skills.map((skillGroup, index) => (
-                <div key={index} className="bg-gray-50 rounded-lg p-6">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-4">
-                    {skillGroup.category}
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {skillGroup.items.map((skill, skillIndex) => (
-                      <span
-                        key={skillIndex}
-                        className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium hover:bg-blue-200 transition-colors"
-                      >
-                        {skill}
-                      </span>
-                    ))}
+              {skills.length > 0 ? (
+                skills.map((skillGroup, index) => (
+                  <div key={index} className="bg-gray-50 rounded-lg p-6">
+                    <h4 className="text-lg font-semibold text-gray-900 mb-4">
+                      {skillGroup.category}
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {skillGroup.items.map((skill, skillIndex) => (
+                        <span
+                          key={skillIndex}
+                          className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium hover:bg-blue-200 transition-colors"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
                   </div>
+                ))
+              ) : (
+                <div className="bg-gray-50 rounded-lg p-6 text-center">
+                  <p className="text-gray-600">
+                    No skills added yet. Add some skills in the admin panel!
+                  </p>
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </div>

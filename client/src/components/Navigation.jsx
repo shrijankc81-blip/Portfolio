@@ -28,7 +28,7 @@ const Navigation = ({ activeSection }) => {
               onClick={() => scrollToSection("home")}
               className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors"
             >
-              Portfolio
+              Nirvan Maharjan
             </button>
           </div>
 

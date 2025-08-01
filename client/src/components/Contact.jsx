@@ -59,8 +59,8 @@ const Contact = () => {
         </svg>
       ),
       title: "Email",
-      value: "your.email@example.com",
-      link: "mailto:your.email@example.com",
+      value: "maharjannirvan01@gmail.com",
+      link: "mailto:maharjannirvan01@gmail.com",
     },
     {
       icon: (
@@ -105,7 +105,7 @@ const Contact = () => {
         </svg>
       ),
       title: "Location",
-      value: "New York, NY",
+      value: "Kathmandu, Nepal",
       link: null,
     },
   ];

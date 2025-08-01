@@ -18,7 +18,7 @@ export const getImageUrl = (imagePath) => {
   // If it's a relative path (starts with /), prepend the server URL
   if (imagePath.startsWith("/")) {
     return `${
-      import.meta.env.VITE_API_URL || "http://localhost:5002"
+      import.meta.env.VITE_API_URL || "http://localhost:5003"
     }${imagePath}`;
   }
 

@@ -8,6 +8,7 @@ import SkillForm from "./SkillForm";
 import ExperienceList from "./ExperienceList";
 import ExperienceForm from "./ExperienceForm";
 import ProfileForm from "./ProfileForm";
+import ContactManager from "./ContactManager";
 
 const AdminDashboard = ({ admin, onLogout }) => {
   const [activeTab, setActiveTab] = useState("profile");
@@ -160,6 +161,7 @@ const AdminDashboard = ({ admin, onLogout }) => {
     { id: "add-skill", label: "Add Skill", icon: "➕" },
     { id: "experience", label: "Experience", icon: "💼" },
     { id: "add-experience", label: "Add Experience", icon: "➕" },
+    { id: "messages", label: "Messages", icon: "📧" },
   ];
 
   return (
@@ -351,6 +353,12 @@ const AdminDashboard = ({ admin, onLogout }) => {
                   setActiveTab("experience");
                 }}
               />
+            </div>
+          )}
+
+          {activeTab === "messages" && (
+            <div>
+              <ContactManager />
             </div>
           )}
         </div>

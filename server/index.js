@@ -12,6 +12,7 @@ const projectRoutes = require("./src/routes/projects");
 const skillRoutes = require("./src/routes/skills");
 const experienceRoutes = require("./src/routes/experience");
 const uploadRoutes = require("./src/routes/upload");
+const contactRoutes = require("./src/routes/contact");
 
 const app = express();
 
@@ -41,47 +42,7 @@ app.use("/api/skills", skillRoutes);
 app.use("/api/experience", experienceRoutes);
 app.use("/api/profile", require("./src/routes/profile"));
 app.use("/api/upload", uploadRoutes);
-
-// Contact form endpoint
-app.post("/api/contact", (req, res) => {
-  const { name, email, subject, message } = req.body;
-
-  // Basic validation
-  if (!name || !email || !subject || !message) {
-    return res.status(400).json({
-      error: "All fields are required",
-    });
-  }
-
-  // Email validation
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    return res.status(400).json({
-      error: "Please provide a valid email address",
-    });
-  }
-
-  // Here you would typically:
-  // 1. Save to database
-  // 2. Send email notification
-  // 3. Send auto-reply to user
-
-  console.log("Contact form submission:", {
-    name,
-    email,
-    subject,
-    message,
-    timestamp: new Date().toISOString(),
-  });
-
-  // Simulate processing time
-  setTimeout(() => {
-    res.json({
-      success: true,
-      message: "Thank you for your message! I'll get back to you soon.",
-    });
-  }, 1000);
-});
+app.use("/api/contact", contactRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

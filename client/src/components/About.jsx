@@ -1,18 +1,66 @@
+import { useState, useEffect } from "react";
+import { getApiUrl } from "../config/api";
+
 const About = () => {
+  const [profile, setProfile] = useState(null);
+
+  // Fetch profile data
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch(getApiUrl("/api/profile"));
+        if (response.ok) {
+          const data = await response.json();
+          setProfile(data);
+        }
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+      }
+    };
+
+    fetchProfile();
+  }, []);
   const skills = [
     {
       category: "Frontend",
-      items: ["React", "JavaScript", "TypeScript", "HTML5", "CSS3", "Tailwind CSS", "Vue.js", "Next.js"]
+      items: [
+        "React",
+        "JavaScript",
+        "TypeScript",
+        "HTML5",
+        "CSS3",
+        "Tailwind CSS",
+        "Vue.js",
+        "Next.js",
+      ],
     },
     {
       category: "Backend",
-      items: ["Node.js", "Express.js", "Python", "Django", "PostgreSQL", "MongoDB", "REST APIs", "GraphQL"]
+      items: [
+        "Node.js",
+        "Express.js",
+        "Python",
+        "Django",
+        "PostgreSQL",
+        "MongoDB",
+        "REST APIs",
+        "GraphQL",
+      ],
     },
     {
       category: "Tools & Others",
-      items: ["Git", "Docker", "AWS", "Figma", "Photoshop", "Linux", "Agile", "Testing"]
-    }
-  ]
+      items: [
+        "Git",
+        "Docker",
+        "AWS",
+        "Figma",
+        "Photoshop",
+        "Linux",
+        "Agile",
+        "Testing",
+      ],
+    },
+  ];
 
   return (
     <section id="about" className="py-20 bg-white">
@@ -30,31 +78,16 @@ const About = () => {
           {/* Left Column - Personal Info */}
           <div>
             <h3 className="text-2xl font-bold text-gray-900 mb-6">
-              Get to know me!
+              {profile?.aboutTitle || "Get to know me!"}
             </h3>
             <div className="space-y-4 text-gray-700 leading-relaxed">
               <p>
-                I'm a <strong>Full Stack Developer</strong> passionate about building 
-                exceptional digital experiences. I enjoy creating websites and web 
-                applications that not only look great but also provide seamless user experiences.
+                {profile?.aboutDescription ||
+                  "I'm a Full Stack Developer passionate about building exceptional digital experiences. I enjoy creating websites and web applications that not only look great but also provide seamless user experiences. With a background in both design and development, I bring a unique perspective to every project. I love the challenge of turning complex problems into simple, beautiful, and intuitive solutions."}
               </p>
-              <p>
-                With a background in both design and development, I bring a unique perspective 
-                to every project. I love the challenge of turning complex problems into 
-                simple, beautiful, and intuitive solutions.
-              </p>
-              <p>
-                I'm constantly learning and staying up-to-date with the latest technologies 
-                and best practices in web development. I believe in writing clean, 
-                maintainable code and creating applications that scale.
-              </p>
-              <p>
-                When I'm not coding, you can find me exploring new technologies, 
-                contributing to open-source projects, or sharing my knowledge with 
-                the developer community.
-              </p>
+              {profile?.bio && <p>{profile.bio}</p>}
             </div>
-            
+
             <div className="mt-8">
               <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200">
                 Download Resume
@@ -64,9 +97,7 @@ const About = () => {
 
           {/* Right Column - Skills */}
           <div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">
-              My Skills
-            </h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">My Skills</h3>
             <div className="space-y-6">
               {skills.map((skillGroup, index) => (
                 <div key={index} className="bg-gray-50 rounded-lg p-6">
@@ -110,7 +141,7 @@ const About = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default About
+export default About;

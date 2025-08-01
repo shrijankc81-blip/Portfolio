@@ -1,6 +1,30 @@
+import { useState, useEffect } from "react";
+import { getApiUrl } from "../config/api";
+import { getImageUrl, handleImageError } from "../utils/imageUtils";
 import profileImage from "../assets/profile.jpg";
 
 const Hero = () => {
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch profile data
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch(getApiUrl("/api/profile"));
+        if (response.ok) {
+          const data = await response.json();
+          setProfile(data);
+        }
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, []);
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -19,9 +43,14 @@ const Hero = () => {
           <div className="mb-8">
             <div className="w-32 h-32 mx-auto rounded-full overflow-hidden shadow-lg ring-4 ring-white">
               <img
-                src={profileImage}
-                alt="Nirvan Maharjan"
+                src={
+                  profile?.profileImage
+                    ? getImageUrl(profile.profileImage)
+                    : profileImage
+                }
+                alt={profile?.fullName || "Nirvan Maharjan"}
                 className="w-full h-full object-cover"
+                onError={handleImageError}
               />
             </div>
           </div>
@@ -30,20 +59,19 @@ const Hero = () => {
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
             Hi, I'm{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-              Nirvan Maharjan
+              {profile?.fullName || "Nirvan Maharjan"}
             </span>
           </h1>
 
           {/* Subtitle */}
           <p className="text-xl md:text-2xl text-gray-600 mb-8">
-            Full Stack Developer & UI/UX Designer
+            {profile?.title || "Full Stack Developer & UI/UX Designer"}
           </p>
 
           {/* Description */}
           <p className="text-lg text-gray-700 mb-12 max-w-2xl mx-auto leading-relaxed">
-            I create beautiful, functional, and user-centered digital
-            experiences. Passionate about clean code, innovative design, and
-            solving complex problems through technology.
+            {profile?.heroDescription ||
+              "I create beautiful, functional, and user-centered digital experiences. Passionate about clean code, innovative design, and solving complex problems through technology."}
           </p>
 
           {/* CTA Buttons */}

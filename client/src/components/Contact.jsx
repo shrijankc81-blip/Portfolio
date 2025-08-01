@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getApiUrl } from "../config/api";
 import axios from "axios";
 
 const Contact = () => {
+  const [profile, setProfile] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -10,6 +12,23 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+
+  // Fetch profile data
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch(getApiUrl("/api/profile"));
+        if (response.ok) {
+          const data = await response.json();
+          setProfile(data);
+        }
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -59,8 +78,8 @@ const Contact = () => {
         </svg>
       ),
       title: "Email",
-      value: "maharjannirvan01@gmail.com",
-      link: "mailto:maharjannirvan01@gmail.com",
+      value: profile?.email || "maharjannirvan01@gmail.com",
+      link: `mailto:${profile?.email || "maharjannirvan01@gmail.com"}`,
     },
     {
       icon: (
@@ -79,8 +98,8 @@ const Contact = () => {
         </svg>
       ),
       title: "Phone",
-      value: "+1 (555) 123-4567",
-      link: "tel:+15551234567",
+      value: profile?.phone || "+1 (555) 123-4567",
+      link: `tel:${profile?.phone?.replace(/\s/g, "") || "+15551234567"}`,
     },
     {
       icon: (
@@ -105,7 +124,7 @@ const Contact = () => {
         </svg>
       ),
       title: "Location",
-      value: "Kathmandu, Nepal",
+      value: profile?.location || "Kathmandu, Nepal",
       link: null,
     },
   ];

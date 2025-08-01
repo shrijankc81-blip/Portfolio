@@ -170,6 +170,122 @@ const Experience = sequelize.define(
   }
 );
 
+// Profile Model
+const Profile = sequelize.define(
+  "Profile",
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    // Personal Information
+    fullName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "Nirvan Maharjan",
+    },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "Full Stack Developer",
+    },
+    bio: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    profileImage: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    // Contact Information
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "maharjannirvan01@gmail.com",
+    },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    location: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "Kathmandu, Nepal",
+    },
+    // Social Links
+    github: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    linkedin: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    twitter: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    website: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    // Professional Information
+    yearsOfExperience: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      defaultValue: 0,
+    },
+    currentPosition: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    company: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    // About Section Content
+    aboutTitle: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "Get to know me!",
+    },
+    aboutDescription: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    // Hero Section Content
+    heroSubtitle: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    heroDescription: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    // Resume/CV
+    resumeUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    // Availability
+    isAvailableForWork: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
+    // Meta Information
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
 // Initialize database
 const initDatabase = async () => {
   try {
@@ -224,5 +340,6 @@ module.exports = {
   Admin,
   Skill,
   Experience,
+  Profile,
   initDatabase,
 };

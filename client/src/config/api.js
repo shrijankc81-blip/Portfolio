@@ -9,6 +9,11 @@ const API_CONFIG = {
     ADMIN_LOGIN: "/api/admin/login",
     ADMIN_ME: "/api/admin/me",
 
+    // Profile endpoints
+    PROFILE: "/api/profile",
+    PROFILE_UPLOAD_IMAGE: "/api/profile/upload-image",
+    PROFILE_RESET: "/api/profile/reset",
+
     // Projects endpoints
     PROJECTS: "/api/projects",
     PROJECT_BY_ID: (id) => `/api/projects/${id}`,
@@ -45,12 +50,19 @@ export const getApiUrl = (endpoint) => {
 };
 
 // Helper function to get authenticated headers
-export const getAuthHeaders = () => {
+export const getAuthHeaders = (includeContentType = true) => {
   const token = localStorage.getItem("adminToken");
-  return {
-    ...API_CONFIG.DEFAULT_HEADERS,
-    ...(token && { Authorization: `Bearer ${token}` }),
-  };
+  const headers = {};
+
+  if (includeContentType) {
+    Object.assign(headers, API_CONFIG.DEFAULT_HEADERS);
+  }
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  return headers;
 };
 
 // Export the configuration

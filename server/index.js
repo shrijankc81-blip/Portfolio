@@ -39,6 +39,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/skills", skillRoutes);
 app.use("/api/experience", experienceRoutes);
+app.use("/api/profile", require("./src/routes/profile"));
 app.use("/api/upload", uploadRoutes);
 
 // Contact form endpoint

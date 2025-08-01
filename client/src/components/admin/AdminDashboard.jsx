@@ -6,9 +6,10 @@ import SkillsList from "./SkillsList";
 import SkillForm from "./SkillForm";
 import ExperienceList from "./ExperienceList";
 import ExperienceForm from "./ExperienceForm";
+import ProfileForm from "./ProfileForm";
 
 const AdminDashboard = ({ admin, onLogout }) => {
-  const [activeTab, setActiveTab] = useState("projects");
+  const [activeTab, setActiveTab] = useState("profile");
   const [projects, setProjects] = useState([]);
   const [skills, setSkills] = useState({});
   const [experiences, setExperiences] = useState([]);
@@ -154,6 +155,7 @@ const AdminDashboard = ({ admin, onLogout }) => {
   };
 
   const tabs = [
+    { id: "profile", label: "Profile", icon: "👤" },
     { id: "projects", label: "Projects", icon: "📁" },
     { id: "add-project", label: "Add Project", icon: "➕" },
     { id: "skills", label: "Skills", icon: "🛠️" },
@@ -220,6 +222,8 @@ const AdminDashboard = ({ admin, onLogout }) => {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
+          {activeTab === "profile" && <ProfileForm />}
+
           {activeTab === "projects" && (
             <div>
               <div className="flex justify-between items-center mb-6">

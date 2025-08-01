@@ -1,3 +1,5 @@
+import profileImage from "../assets/profile.jpg";
+
 const Hero = () => {
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -15,8 +17,12 @@ const Hero = () => {
         <div className="max-w-3xl mx-auto">
           {/* Profile Image */}
           <div className="mb-8">
-            <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white text-4xl font-bold shadow-lg">
-              NM
+            <div className="w-32 h-32 mx-auto rounded-full overflow-hidden shadow-lg ring-4 ring-white">
+              <img
+                src={profileImage}
+                alt="Nirvan Maharjan"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 
@@ -44,7 +50,7 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button
               onClick={() => scrollToSection("projects")}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
             >
               View My Work
             </button>
